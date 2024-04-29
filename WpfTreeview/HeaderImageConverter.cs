@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+using WpfTreeview.Directory;
 
 namespace WpfTreeview
 {
@@ -17,7 +18,7 @@ namespace WpfTreeview
             if(path == null)
                 return null;
 
-            var name = MainWindow.GetFileFolderName(path);
+            var name = DirectoryStructure.GetFileFolderName(path);
 
             string image = "Images/HardDrive.png";
 
