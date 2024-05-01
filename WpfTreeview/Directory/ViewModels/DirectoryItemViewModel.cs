@@ -2,6 +2,7 @@
 using WpfTreeview.Directory.Data;
 using System.Linq;
 using System;
+using System.Windows.Input;
 
 namespace WpfTreeview.Directory.ViewModels
 {
@@ -39,6 +40,12 @@ namespace WpfTreeview.Directory.ViewModels
             }
         }
 
+        #region public Commands
+
+        public ICommand ExpandCommand { get; set; }
+
+        #endregion
+
         private void ClearChildren()
         {
             this.Children = new ObservableCollection<DirectoryItemViewModel>();
@@ -48,8 +55,25 @@ namespace WpfTreeview.Directory.ViewModels
                 this.Children.Add(null);
         }
 
+        public DirectoryItemViewModel(string fullPath, DirectoryItemType type)
+        {
+            this.ExpandCommand = new RelayCommand(Expand);
+
+            this.FullPath = fullPath;
+            this.Type = type;
+
+            this.ClearChildren();
+        }
+
         private void Expand()
         {
+            if (this.Type == DirectoryItemType.File)
+                return;
+
+            var children = DirectoryStructure.GetDirectoryContents(this.FullPath);
+
+            this.Children = new ObservableCollection<DirectoryItemViewModel>(children
+                .Select(content => new DirectoryItemViewModel(content.FullPath, content.Type)));
         }
     }
 }

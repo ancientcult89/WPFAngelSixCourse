@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using WpfTreeview.Directory.ViewModels;
 
 namespace WpfTreeview
 {
@@ -7,6 +8,8 @@ namespace WpfTreeview
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new DirectoryStructureViewModel();
         }
     }
 }
