@@ -1,4 +1,5 @@
-﻿using Fasetto.Word.ViewModels.Base;
+﻿using Fasetto.Word.DataModels;
+using Fasetto.Word.ViewModels.Base;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -13,6 +14,7 @@ namespace Fasetto.Word.ViewModel
         private int mOuterMarginSize = 10;
         private int mWindowRadius = 10;
 
+        public Thickness InnerContentPadding { get; set; } = new Thickness(0);
         public int ResizeBorder { get; set; } = 6;
         public Thickness ResizeBorderThickness { get { return new Thickness(ResizeBorder + OuterMarginSize); } }
         public int OuterMarginSize
@@ -37,6 +39,8 @@ namespace Fasetto.Word.ViewModel
 
         public double WindowMinimumWidth { get; set; } = 400;
         public double WindowMinimumHeight { get; set; } = 400;
+
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Login;
 
         public WindowViewModel(Window window)
         {

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fasetto.Word"
+        xmlns:converters="clr-namespace:Fasetto.Word.ValueConverters"
         mc:Ignorable="d"
         WindowStyle="None"
         x:Name="AppWindow"
@@ -65,8 +66,18 @@
                                             <Image Source="/Images/Logo/logo-small.png"/>
                                         </Button>      
                                         <!--title text-->
-                                        <Viewbox Grid.Column="1" Margin="0">
-                                            <TextBlock Style="{StaticResource HeaderText}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Welcome, friend!'}"/>
+                                        <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
+                                            <StackPanel>
+                                                <TextBlock FontFamily="{StaticResource LatoBold}">
+                                                    <Run Text="W" Foreground="{StaticResource WordOrangeBrush}"/><Run Text="O" Foreground="{StaticResource WordBlueBrush}"/><Run Text="R" Foreground="{StaticResource WordRedBrush}"/><Run Text="D" Foreground="{StaticResource WordGreenBrush}"/>
+                                                </TextBlock>
+                                                <TextBlock 
+                                                    FontFamily="{StaticResource LatoThin}" 
+                                                    FontSize="{StaticResource FontSizeSmall}" 
+                                                    TextAlignment="Center"
+                                                    Margin="0,0,0,-2"
+                                                    Text="by Hakon"/>
+                                            </StackPanel>
                                         </Viewbox>
                                         
                                         <!--window buttons-->
@@ -75,28 +86,9 @@
                                             <Button Style="{StaticResource WindowControlButton}" Content="[ ]" Command="{Binding MaximizeCommand}"/>
                                             <Button Style="{StaticResource WindowCloseButton}" Content="X" Command="{Binding CloseCommand}"/>
                                         </StackPanel>
-                                    </Grid>
-                                    <!--drop shadow-->
-                                    <Border Grid.Row="1" Height="6" BorderThickness="0 0.2 0 0">
-                                        <!--underline-->
-                                        <Border.BorderBrush>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1, 0">
-                                                <GradientStop Color="{StaticResource ForegroundLght}" Offset="0.0"/>
-                                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.5"/>
-                                                <GradientStop Color="{StaticResource ForegroundLght}" Offset="1.0"/>
-                                            </LinearGradientBrush>
-                                        </Border.BorderBrush>
-                                        <!--drop shadow-->
-                                        <Border.Background>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1, 0">
-                                                <GradientStop Color="{StaticResource BackgroundVeryLight}" Offset="0.0"/>
-                                                <GradientStop Color="{StaticResource ForegroundLght}" Offset="1.0"/>
-                                            </LinearGradientBrush>
-                                        </Border.Background>                                        
-                                    </Border>
-                                    
+                                    </Grid>                                    
                                     <!--page content-->
-                                    <Border Grid.Row="2" Padding="6">
+                                    <Border Grid.Row="2" Padding="1" Background="{StaticResource WordBlueBrush}">
                                         <ContentPresenter Content="{TemplateBinding Content}"/>
                                     </Border>
                                 </Grid>
@@ -117,5 +109,6 @@
             />
     </WindowChrome.WindowChrome>
     <Grid Background="{StaticResource ForegroundLghtBrush}">
+        <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={converters:ApplicationPageValueConverter}}"/>
     </Grid>
 </Window>
